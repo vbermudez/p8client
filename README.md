@@ -1,3 +1,3 @@
 # P8Client
 
-npm install git+https://github.com/vbermudez/p8client.git
+npm install -i --save https://github.com/vbermudez/p8client/tarball/master

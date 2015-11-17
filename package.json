@@ -21,6 +21,10 @@
     "test": "./node_modules/.bin/jasmine-node ./test --verbose",
     "browser": "./node_modules/.bin/phantomjs ./test/run-jasmine.js ./test/SpecRunner.html"
   },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/vbermudez/p8client.git"
+  },
   "dependencies": {
     "jasmine-node": "^1.14.5",
     "phantomjs": "^1.9.18"
