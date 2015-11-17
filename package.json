@@ -13,7 +13,7 @@
     "filenet"
   ],
   "license": "(MIT OR Apache-2.0)",
-  "homepage": "http://www.xi-tek.net",
+  "homepage": "http://www.xi-tek.com",
   "private": true,
   "readmeFilename": "README.md",
   "main": "lib/p8client.js",
