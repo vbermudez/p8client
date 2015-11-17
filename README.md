@@ -1,3 +1,15 @@
 # P8Client
 
-npm install -i --save https://github.com/vbermudez/p8client/tarball/master
+Install using:
+```shellscript
+npm install --save https://github.com/vbermudez/p8client.git
+```
+or:
+```json
+{
+	"dependencies": {
+		"P8Client": "git+https://github.com/vbermudez/p8client.git"
+	}
+}
+```
+
