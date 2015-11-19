@@ -44,5 +44,23 @@ p8.connect('username', 'password', function(err, client) {
 			console.log('Found', doc.DocumentTitle, 'with id', doc.Id.value)
 		}
 	})
+	
+	search.query = "select This, * from Document where DocumentTitle like '%test%'"
+	search.searchRows = false
+	
+	client.search(search, function(err, result) {
+		if (err) {
+			return console.log(err)
+		}
+		
+		if (result.rows.length > 0) {
+			var doc = result.rows[0].This
+			
+			doc.download(function(err, contentElements) {
+				console.log('Mime Type', contentElements[0].mime)
+				console.log('Binary', contentElements[0].data)
+			})
+		}
+	})
 })
 ```

@@ -16,7 +16,13 @@
   "homepage": "http://www.xi-tek.com",
   "private": true,
   "readmeFilename": "README.md",
-  "main": "lib/p8client.js",
+  "engines": {
+    "node": ">=0.8.0"
+  },
+  "main": "./index.js",
+  "directories": {
+    "lib": "./lib"
+  },
   "scripts": {
     "test": "./node_modules/.bin/jasmine-node ./test --verbose",
     "browser": "./node_modules/.bin/phantomjs ./test/run-jasmine.js ./test/SpecRunner.html"
