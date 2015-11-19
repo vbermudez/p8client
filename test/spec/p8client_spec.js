@@ -34,6 +34,7 @@ describe('P8Client', function() {
 			expect(client.ws.FNCEWS40Service).not.toBe(null)
 			expect(client.ws.FNCEWS40Service.FNCEWS40MTOMPort).not.toBe(null)
 			expect(client.ws.FNCEWS40Service.FNCEWS40MTOMPort.ExecuteSearch).not.toBe(null)
+			console.log(client.ws.describe())
 			done()
 		})
 	})
@@ -79,10 +80,12 @@ describe('P8Client', function() {
 			
 			expect(doc).not.toBe(null)
 			
-			doc.download(function(err, content) {
+			doc.download(function(err, contents) {
 				expect(err).toBe(null)
-				expect(content).not.toBe(null)
-				console.log(content)
+				expect(contents).not.toBe(null)
+				expect(contents.length).toBeGreaterThan(0)
+				expect(contents[0].mime).not.toBe(null)
+				expect(contents[0].data).not.toBe(null)
 				done()
 			})
 		})
