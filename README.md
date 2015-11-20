@@ -1,4 +1,4 @@
-# P8Client
+# P8Client - IN DEVELOPMENT -
 
 Simple and thin IBM FileNet P8 Client for Node.js
 
@@ -15,7 +15,9 @@ or:
 	}
 }
 ```
-
+##Supports
+-Document row and object search
+-Document download
 ##Usage
 ```JavaScript
 var P8Client = require('p8client')
