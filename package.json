@@ -25,7 +25,10 @@
   },
   "scripts": {
     "test": "./node_modules/.bin/jasmine-node ./test --verbose",
-    "browser": "./node_modules/.bin/phantomjs ./test/run-jasmine.js ./test/SpecRunner.html"
+    "browser": "./node_modules/.bin/phantomjs ./test/run-jasmine.js ./test/SpecRunner.html",
+    "postinstall": "typings install",
+    "tsc": "tsc",
+    "tsc:w": "tsc -w"
   },
   "repository": {
     "type": "git",
@@ -35,8 +38,10 @@
     "soap": "git+https://github.com/vbermudez/node-soap.git"
   },
   "devDependencies": {
+    "@types/node": "^6.0.46",
+    "@types/soap": "0.0.30",
     "jasmine-node": "^1.14.5",
-    "phantomjs": "^1.9.18"
-    
+    "phantomjs": "^1.9.18",
+    "typescript": "^2.0.9"
   }
 }
