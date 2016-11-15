@@ -7,9 +7,12 @@ import { P8DownloadRequest } from './requests/p8download';
 import { P8SearchRequest } from './requests/p8search';
 
 export interface IP8Client {
+	ws: any;
+	port: any;
+	
 	download(downloadRequest: P8DownloadRequest, callback: Function): void
 	save(object: ICustomObject, callback: Function): void;
-	search(searchRequest: P8SearchRequest, callback: Function): void
+	search(searchRequest: P8SearchRequest, callback: Function): void;
 }
 
 export class P8SOAPClient implements IP8Client {
