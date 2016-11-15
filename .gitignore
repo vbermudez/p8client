@@ -32,3 +32,4 @@ typings
 # temp && files folders
 temp
 files
+.vscode
