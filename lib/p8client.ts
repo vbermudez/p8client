@@ -3,13 +3,14 @@
 import './utils/extend';
 import * as soap  from 'soap';
 import { ICustomObject } from './objects/p8custom';
+import { IDocument, Document } from './objects/p8document';
 import { P8DownloadRequest } from './requests/p8download';
 import { P8SearchRequest } from './requests/p8search';
 
 export interface IP8Client {
 	ws: any;
 	port: any;
-	
+
 	download(downloadRequest: P8DownloadRequest, callback: Function): void
 	save(object: ICustomObject, callback: Function): void;
 	search(searchRequest: P8SearchRequest, callback: Function): void;
@@ -90,7 +91,7 @@ export class P8SOAPClient implements IP8Client {
 			};
 			
 			if (!rowsonly && row.This) {
-				let doc: any = new Document(this);
+				let doc: IDocument = new Document(this);
 				
 				doc.id = row.This.value.objectId;
 				doc.objectClass = row.This.value.classId;
