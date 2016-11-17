@@ -7,7 +7,7 @@ Install using:
 ```shellscript
 npm install --save https://github.com/vbermudez/p8client.git
 ```
-or:
+or, directly adding a dependency to your _package.json_:
 ```json
 {
 	"dependencies": {
@@ -15,9 +15,11 @@ or:
 	}
 }
 ```
+
 ##Supports
--Document row and object search
--Document download
+- Document row and object search
+- Document download
+
 ##Usage
 ```JavaScript
 var P8Client = require('p8client');
