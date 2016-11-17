@@ -19,16 +19,17 @@
   "engines": {
     "node": ">=0.8.0"
   },
-  "main": "./index.js",
+  "main": "./src/p8client.ts",
   "directories": {
-    "lib": "./lib"
+    "src": "./src",
+    "dist": "./dist"
   },
   "scripts": {
     "test": "./node_modules/.bin/jasmine-node ./test --verbose",
     "browser": "./node_modules/.bin/phantomjs ./test/run-jasmine.js ./test/SpecRunner.html",
-    "postinstall": "typings install",
-    "tsc": "tsc",
-    "tsc:w": "tsc -w"
+    "browserify": "./node_modules/.bin/browserify ./index.ts -p [ tsify --noImplicitAny ] > ./dist/p8client.js",
+    "tsc": "./node_modules/.bin/tsc",
+    "tsc:w": "./node_modules/.bin/tsc -w"
   },
   "repository": {
     "type": "git",
@@ -38,10 +39,16 @@
     "soap": "git+https://github.com/vbermudez/node-soap.git"
   },
   "devDependencies": {
+    "@types/es6-shim": "^0.31.32",
+    "@types/jasmine": "^2.5.38",
     "@types/node": "^6.0.46",
     "@types/soap": "0.0.30",
+    "browserify": "^13.1.1",
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^3.1.3",
     "jasmine-node": "^1.14.5",
     "phantomjs": "^1.9.18",
+    "tsify": "^2.0.3",
     "typescript": "^2.0.9"
   }
 }

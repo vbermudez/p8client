@@ -7,12 +7,17 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "removeComments": true,
-    "noImplicitAny": false
+    "noImplicitAny": true
   },
   "exclude": [
     "node_modules",
-    "bower_components",
-    "typings/main",
-    "typings/main.d.ts"
+    "bower_components"
+  ],
+  "files": [
+    "src/p8client.ts",
+    "src/object/p8custom.ts",
+    "src/object/p8document.ts",
+    "src/requests/p8download.ts",
+    "src/requests/p8search.ts"
   ]
 }
