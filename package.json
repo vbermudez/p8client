@@ -28,8 +28,7 @@
     "test": "./node_modules/.bin/jasmine-node ./test --verbose",
     "browser": "./node_modules/.bin/phantomjs ./test/run-jasmine.js ./test/SpecRunner.html",
     "browserify": "./node_modules/.bin/browserify ./index.ts -p [ tsify --noImplicitAny ] > ./dist/p8client.js",
-    "tsc": "./node_modules/.bin/tsc",
-    "tsc:w": "./node_modules/.bin/tsc -w"
+    "gulp": "./node_modules/.bin/gulp"
   },
   "repository": {
     "type": "git",
@@ -46,9 +45,12 @@
     "browserify": "^13.1.1",
     "gulp": "^3.9.1",
     "gulp-typescript": "^3.1.3",
+    "gulp-util": "^3.0.7",
     "jasmine-node": "^1.14.5",
     "phantomjs": "^1.9.18",
     "tsify": "^2.0.3",
-    "typescript": "^2.0.9"
+    "typescript": "^2.0.9",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.7.0"
   }
 }

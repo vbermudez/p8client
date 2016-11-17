@@ -15,8 +15,8 @@
   ],
   "files": [
     "src/p8client.ts",
-    "src/object/p8custom.ts",
-    "src/object/p8document.ts",
+    "src/objects/p8custom.ts",
+    "src/objects/p8document.ts",
     "src/requests/p8download.ts",
     "src/requests/p8search.ts"
   ]

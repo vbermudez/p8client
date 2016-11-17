@@ -1,6 +1,5 @@
 'use strict';
 
-import './utils/extend';
 import * as soap  from 'soap';
 import { ICustomObject } from './objects/p8custom';
 import { IDocument, Document } from './objects/p8document';
@@ -34,14 +33,14 @@ export class P8SOAPClient implements IP8Client {
 	public download(downloadRequest: P8DownloadRequest, callback: Function): void {
 		let p8sc = this;
 
-		this.port.GetContent(downloadRequest.build(), function(err, result) {
+		this.port.GetContent(downloadRequest.build(), function(err: any, result: any) {
 			if (err) {
 				console.log('download callback error', err.root.Envelope.Body.Fault);
 				
 				return callback.call(p8sc, err.root.Envelope.Body.Fault);
 			}
 
-			let binaries = [];
+			let binaries: Array<any> = [];
 
 			for (let binId in p8sc._ws.binaries) {
 				binaries.push(p8sc._ws.binaries[binId]);
@@ -66,7 +65,7 @@ export class P8SOAPClient implements IP8Client {
 			}
 		});
 		
-		this.port.ExecuteSearch(searchRequest.build(), function(err, result) {
+		this.port.ExecuteSearch(searchRequest.build(), function(err: any, result: any) {
 			if (err) {
 				console.log('search callback error', err.root.Envelope.Body.Fault);
 

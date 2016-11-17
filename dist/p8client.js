@@ -1,5 +1,4 @@
 'use strict';
-require('./utils/extend');
 var soap = require('soap');
 var p8document_1 = require('./objects/p8document');
 var P8SOAPClient = (function () {
