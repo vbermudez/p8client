@@ -1,8 +1,8 @@
 # P8Client - IN DEVELOPMENT -
 
-Simple and thin IBM FileNet P8 Client for Node.js
+Simple and thin IBM FileNet P8 Client for NodeJS
 
-##Install
+## Install
 Install using:
 ```shellscript
 npm install --save https://github.com/vbermudez/p8client.git
@@ -16,55 +16,41 @@ or, directly adding a dependency to your _package.json_:
 }
 ```
 
-##Supports
+## Supports
 - Document row and object search
 - Document download
 
-##Usage
+## Usage
 ```JavaScript
-var P8Client = require('p8client');
-var P8Search = require('p8search');
-var p8 = new P8Client('http://<filenet.server.url>:<port>');
+const P8Client = require('p8client');
+let P8Search = require('p8search');
 
-p8.connect('username', 'password', function(err, client) {
-	if (err) {
-		return console.log(err);
-	}
+const p8 = new P8Client('http://<filenet.server.url>:<port>');
+const client = await p8.connect('username', 'password');
+let searchOpts = new P8Search();
+
+searchOpts.objectStore = '<objectStoreID>';
+searchOpts.query = "select * from Document where DocumentTitle like '%test%'";
+searchOpts.searchRows = true;
+
+let results = await client.search(searchOpts);
+
+for (let i = 0, len = result.rows.length; i < len; i++) {
+	let doc = result.rows[i];
 	
-	var search = new P8Search();
-	
-	search.objectStore = '<objectStoreID>';
-	search.query = "select * from Document where DocumentTitle like '%test%'";
-	search.searchRows = true;
-	
-	client.search(search, function(err, result) {
-		if (err) {
-			return console.log(err);
-		}
-		
-		for (var i = 0, len = result.rows.length; i < len; i++) {
-			var doc = result.rows[i];
-			
-			console.log('Found', doc.DocumentTitle, 'with id', doc.Id.value);
-		}
-	})
-	
-	search.query = "select This, * from Document where DocumentTitle like '%test%'";
-	search.searchRows = false;
-	
-	client.search(search, function(err, result) {
-		if (err) {
-			return console.log(err);
-		}
-		
-		if (result.rows.length > 0) {
-			var doc = result.rows[0].This;
-			
-			doc.download(function(err, contentElements) {
-				console.log('Mime Type', contentElements[0].mime);
-				console.log('Binary', contentElements[0].data);
-			})
-		}
-	})
-})
+	console.log(`Found ${doc.DocumentTitle} with id ${doc.Id.value}`);
+}
+
+searchOpts.query = "select This, * from Document where DocumentTitle like '%test%'";
+searchOpts.searchRows = false;
+
+results = await client.search(searchOpts);
+
+if (result.rows.length > 0) {
+	let doc = result.rows[0].This;
+	let contentElements = await doc.download();
+
+	console.log(`Mime Type = ${contentElements[0].mime}`);
+	console.log(`Binary = ${contentElements[0].data}`);
+}
 ```

@@ -1,6 +1,7 @@
 'use strict';
-var P8DownloadRequest = (function () {
-    function P8DownloadRequest() {
+Object.defineProperty(exports, "__esModule", { value: true });
+class P8DownloadRequest {
+    constructor() {
         this._classId = null;
         this._objectId = null;
         this._objectStore = null;
@@ -10,55 +11,23 @@ var P8DownloadRequest = (function () {
         this._itemIndex = 0;
         this._continuable = false;
     }
-    Object.defineProperty(P8DownloadRequest.prototype, "classId", {
-        get: function () { return this._classId; },
-        set: function (value) { this._classId = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(P8DownloadRequest.prototype, "objectId", {
-        get: function () { return this._objectId; },
-        set: function (value) { this._objectId = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(P8DownloadRequest.prototype, "objectStore", {
-        get: function () { return this._objectStore; },
-        set: function (value) { this._objectStore = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(P8DownloadRequest.prototype, "cacheAllowed", {
-        get: function () { return this._cacheAllowed; },
-        set: function (value) { this._cacheAllowed = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(P8DownloadRequest.prototype, "maxBytes", {
-        get: function () { return this._maxBytes; },
-        set: function (value) { this._maxBytes = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(P8DownloadRequest.prototype, "validateOnly", {
-        get: function () { return this._validateOnly; },
-        set: function (value) { this._validateOnly = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(P8DownloadRequest.prototype, "itemIndex", {
-        get: function () { return this._itemIndex; },
-        set: function (value) { this.itemIndex = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(P8DownloadRequest.prototype, "continuable", {
-        get: function () { return this._continuable; },
-        set: function (value) { this.continuable = value; },
-        enumerable: true,
-        configurable: true
-    });
-    P8DownloadRequest.prototype.build = function () {
+    get classId() { return this._classId; }
+    set classId(value) { this._classId = value; }
+    get objectId() { return this._objectId; }
+    set objectId(value) { this._objectId = value; }
+    get objectStore() { return this._objectStore; }
+    set objectStore(value) { this._objectStore = value; }
+    get cacheAllowed() { return this._cacheAllowed; }
+    set cacheAllowed(value) { this._cacheAllowed = value; }
+    get maxBytes() { return this._maxBytes; }
+    set maxBytes(value) { this._maxBytes = value; }
+    get validateOnly() { return this._validateOnly; }
+    set validateOnly(value) { this._validateOnly = value; }
+    get itemIndex() { return this._itemIndex; }
+    set itemIndex(value) { this.itemIndex = value; }
+    get continuable() { return this._continuable; }
+    set continuable(value) { this.continuable = value; }
+    build() {
         if (!this.objectStore || !this.classId || !this.objectId) {
             throw new Error('The ObjectStoreID, the ClassID and the ObjectID are mandatory');
         }
@@ -87,7 +56,7 @@ var P8DownloadRequest = (function () {
                 }
             }
         };
-    };
-    return P8DownloadRequest;
-}());
+    }
+}
 exports.P8DownloadRequest = P8DownloadRequest;
+//# sourceMappingURL=p8download.js.map

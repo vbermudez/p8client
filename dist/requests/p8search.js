@@ -1,6 +1,7 @@
 "use strict";
-var P8SearchRequest = (function () {
-    function P8SearchRequest() {
+Object.defineProperty(exports, "__esModule", { value: true });
+class P8SearchRequest {
+    constructor() {
         this.build = function () {
             if (!this.objectStore || !this.query) {
                 throw new Error('The ObjectStoreID and the Query are mandatory');
@@ -28,42 +29,18 @@ var P8SearchRequest = (function () {
         this._query = null;
         this._locale = 'en-US';
     }
-    Object.defineProperty(P8SearchRequest.prototype, "objectStore", {
-        get: function () { return this._objectStore; },
-        set: function (value) { this._objectStore = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(P8SearchRequest.prototype, "searchRows", {
-        get: function () { return this._searchRows; },
-        set: function (value) { this._searchRows = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(P8SearchRequest.prototype, "maxElements", {
-        get: function () { return this._maxElements; },
-        set: function (value) { this._maxElements = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(P8SearchRequest.prototype, "continuable", {
-        get: function () { return this._continuable; },
-        set: function (value) { this._continuable = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(P8SearchRequest.prototype, "query", {
-        get: function () { return this._query; },
-        set: function (value) { this._query = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(P8SearchRequest.prototype, "locale", {
-        get: function () { return this._locale; },
-        set: function (value) { this._locale = value; },
-        enumerable: true,
-        configurable: true
-    });
-    return P8SearchRequest;
-}());
+    get objectStore() { return this._objectStore; }
+    set objectStore(value) { this._objectStore = value; }
+    get searchRows() { return this._searchRows; }
+    set searchRows(value) { this._searchRows = value; }
+    get maxElements() { return this._maxElements; }
+    set maxElements(value) { this._maxElements = value; }
+    get continuable() { return this._continuable; }
+    set continuable(value) { this._continuable = value; }
+    get query() { return this._query; }
+    set query(value) { this._query = value; }
+    get locale() { return this._locale; }
+    set locale(value) { this._locale = value; }
+}
 exports.P8SearchRequest = P8SearchRequest;
+//# sourceMappingURL=p8search.js.map

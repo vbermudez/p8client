@@ -1,68 +1,72 @@
 'use strict';
-var soap = require('soap');
-var p8document_1 = require('./objects/p8document');
-var P8SOAPClient = (function () {
-    function P8SOAPClient(client) {
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const soap = __importStar(require("soap"));
+const objects_1 = require("./objects");
+class P8SOAPClient {
+    constructor(client) {
         this._ws = client;
         this._port = client.FNCEWS40Service.FNCEWS40MTOMPort;
     }
-    Object.defineProperty(P8SOAPClient.prototype, "ws", {
-        get: function () { return this._ws; },
-        set: function (value) { this._ws = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(P8SOAPClient.prototype, "port", {
-        get: function () { return this._port; },
-        set: function (value) { this._port = value; },
-        enumerable: true,
-        configurable: true
-    });
-    P8SOAPClient.prototype.download = function (downloadRequest, callback) {
-        var p8sc = this;
-        this.port.GetContent(downloadRequest.build(), function (err, result) {
-            if (err) {
-                console.log('download callback error', err.root.Envelope.Body.Fault);
-                return callback.call(p8sc, err.root.Envelope.Body.Fault);
+    get ws() { return this._ws; }
+    set ws(value) { this._ws = value; }
+    get port() { return this._port; }
+    set port(value) { this._port = value; }
+    createDocument() {
+        return new objects_1.Document(this);
+    }
+    download(downloadRequest) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let result = yield this.port.GetContentAsync(downloadRequest.build());
+            let binaries = [];
+            for (let binId in this._ws.binaries) {
+                binaries.push(this._ws.binaries[binId]);
             }
-            var binaries = [];
-            for (var binId in p8sc._ws.binaries) {
-                binaries.push(p8sc._ws.binaries[binId]);
-            }
-            return callback.call(p8sc, null, binaries);
+            return binaries;
         });
-    };
-    P8SOAPClient.prototype.save = function (object, callback) {
-        var p8sc = this;
-        callback.call(p8sc, null, object);
-    };
-    P8SOAPClient.prototype.search = function (searchRequest, callback) {
-        var p8sc = this;
-        this.ws.addSoapHeader({
-            'ctyp:Localization': {
-                'ctyp:Locale': searchRequest.locale
-            }
+    }
+    save(object) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield object;
         });
-        this.port.ExecuteSearch(searchRequest.build(), function (err, result) {
-            if (err) {
-                console.log('search callback error', err.root.Envelope.Body.Fault);
-                return callback.call(p8sc, err.root.Envelope.Body.Fault);
-            }
-            return callback.call(p8sc, null, this._parseSearchResults.call(p8sc, result, searchRequest.objectStore, searchRequest.searchRows));
+    }
+    search(searchRequest) {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.ws.addSoapHeader({
+                'ctyp:Localization': {
+                    'ctyp:Locale': searchRequest.locale
+                }
+            });
+            let result = yield this.port.ExecuteSearchAsync(searchRequest.build());
+            return this._parseSearchResults.call(result, searchRequest.objectStore, searchRequest.searchRows);
         });
-    };
-    P8SOAPClient.prototype._parseSearchResults = function (result, objectStore, rowsonly) {
-        var rows = [];
-        for (var i = 0, len = result.Object.length; i < len; i++) {
-            var item = result.Object[i];
-            var row = this._parseRowSearchResultsItem(item.Property);
+    }
+    _parseSearchResults(result, objectStore, rowsOnly) {
+        let rows = [];
+        for (let i = 0, len = result.Object.length; i < len; i++) {
+            let item = result.Object[i];
+            let row = this._parseRowSearchResultsItem(item.Property);
             row['ObjectStore'] = {
                 type: 'ObjectReference',
                 settable: false,
                 value: objectStore
             };
-            if (!rowsonly && row.This) {
-                var doc = new p8document_1.Document(this);
+            if (!rowsOnly && row.This) {
+                let doc = new objects_1.Document(this);
                 doc.id = row.This.value.objectId;
                 doc.objectClass = row.This.value.classId;
                 doc.objectStore = row.ObjectStore.value;
@@ -72,83 +76,68 @@ var P8SOAPClient = (function () {
             rows.push(row);
         }
         return { rows: rows };
-    };
-    P8SOAPClient.prototype._parseRowSearchResultsItem = function (item) {
-        var row = {};
-        for (var l = 0, llen = item.length; l < llen; l++) {
-            var name_1 = item[l]['$attributes'].propertyId;
-            var type = item[l]['$attributes']['i:type'].split(':')[1];
-            var value = item[l].Value || null;
+    }
+    _parseRowSearchResultsItem(item) {
+        let row = {};
+        for (let l = 0, len = item.length; l < len; l++) {
+            let name = item[l]['$attributes'].propertyId;
+            let type = item[l]['$attributes']['i:type'].split(':')[1];
+            let value = item[l].Value || null;
             if (type == 'SingletonObject' && value && typeof value === 'object' && value['$attributes']) {
-                var val = value['$attributes'];
+                let val = value['$attributes'];
                 type = val['i:type'].split(':')[1];
                 value = {
                     classId: val.classId,
                     objectId: val.objectId
                 };
             }
-            row[name_1] = {
+            row[name] = {
                 type: type,
                 settable: item[l]['$attributes'].settable == '1',
                 value: value
             };
         }
         return row;
-    };
-    P8SOAPClient.prototype._copyRow2Properties = function (row) {
-        var props = {};
-        for (var prop in row) {
+    }
+    _copyRow2Properties(row) {
+        let props = {};
+        for (let prop in row) {
             if (prop == 'This') {
                 continue;
             }
             props[prop] = row[prop];
         }
         return props;
-    };
-    return P8SOAPClient;
-}());
+    }
+}
 exports.P8SOAPClient = P8SOAPClient;
-var P8Client = (function () {
-    function P8Client(baseUrl) {
-        this._baseUrl = baseUrl + '/wsi/FNCEWS40MTOM?wsdl';
+class P8Client {
+    constructor(baseUrl) {
+        this._baseUrl = baseUrl + P8Client.FNCEWS40MTOM_WSDL;
         this._basicAuth = null;
         this._client = null;
     }
-    Object.defineProperty(P8Client.prototype, "url", {
-        get: function () { return this._baseUrl; },
-        set: function (value) { this._baseUrl = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(P8Client.prototype, "wsSecurity", {
-        get: function () { return this._basicAuth; },
-        set: function (value) { this._basicAuth = value; },
-        enumerable: true,
-        configurable: true
-    });
-    Object.defineProperty(P8Client.prototype, "client", {
-        get: function () { return this._client; },
-        set: function (value) { this._client = value; },
-        enumerable: true,
-        configurable: true
-    });
-    P8Client.prototype.connect = function (user, password, callback) {
-        if (this.client) {
-            return callback.call(this, null, this.client);
-        }
-        var p8 = this;
-        soap.createClient(this.url, {
-            attributesKey: '$attributes'
-        }, function (err, client) {
-            if (err) {
-                return callback.call(p8, err);
-            }
-            p8.wsSecurity = new soap.WSSecurity(user, password);
-            p8.client = new P8SOAPClient(client);
-            p8.client.ws.setSecurity(p8.wsSecurity);
-            return callback.call(p8, null, p8.client);
+    get url() { return this._baseUrl; }
+    set url(value) { this._baseUrl = value; }
+    get wsSecurity() { return this._basicAuth; }
+    set wsSecurity(value) { this._basicAuth = value; }
+    get client() { return this._client; }
+    set client(value) { this._client = value; }
+    connect(user, password) {
+        return __awaiter(this, void 0, void 0, function* () {
+            let soapClient = yield soap.createClientAsync(this.url, {
+                attributesKey: '$attributes',
+                wsdl_headers: {
+                    connection: 'keep-alive'
+                }
+            });
+            this.wsSecurity = new soap.WSSecurity(user, password);
+            this.client = new P8SOAPClient(soapClient);
+            this.client.ws.setSecurity(this.wsSecurity);
+            return this.client;
         });
-    };
-    return P8Client;
-}());
+    }
+}
+P8Client.FNCEWS40MTOM_WSDL = '/wsi/FNCEWS40MTOM?wsdl';
 exports.P8Client = P8Client;
+//# sourceMappingURL=p8client.js.map

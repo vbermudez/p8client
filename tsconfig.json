@@ -1,23 +1,22 @@
 {
   "compilerOptions": {
-    "target": "es5",
     "module": "commonjs",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es6",
+    "noImplicitAny": true,
     "moduleResolution": "node",
     "sourceMap": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "removeComments": true,
-    "noImplicitAny": true
+    "outDir": "dist",
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "node_modules/*",
+        "src/types/*"
+      ]
+    }
   },
-  "exclude": [
-    "node_modules",
-    "bower_components"
-  ],
-  "files": [
-    "src/p8client.ts",
-    "src/objects/p8custom.ts",
-    "src/objects/p8document.ts",
-    "src/requests/p8download.ts",
-    "src/requests/p8search.ts"
+  "include": [
+    "src/**/*"
   ]
 }

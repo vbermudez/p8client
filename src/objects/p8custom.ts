@@ -9,7 +9,7 @@ export interface ICustomObject {
 	properties: any;
 	acl: Array<any>;
 	
-	save(callback: Function): void;
+	save(callback: Function): Promise<ICustomObject>;
 }
 
 export class CustomObject implements ICustomObject {
@@ -47,26 +47,7 @@ export class CustomObject implements ICustomObject {
 	protected get client(): IP8Client { return this._client; }
 	protected set client(value: IP8Client) { this._client = value; }
 
-	public save(callback: Function): void {
-		this.client.save(this, callback);
+	public async save(callback: Function): Promise<ICustomObject> {
+		return await this.client.save(this);
 	}
 }
-
-// (function() {
-// 	'use strict';
-	
-// 	var CustomObject = function(p8c) {
-// 		this._client = p8c;
-// 		this.id = null;
-// 		this.objectClass = null;
-// 		this.objectStore = null;
-// 		this.properties = {};
-// 		this.acl = [];
-// 	}
-	
-// 	CustomObject.prototype.save = function(callback) {
-// 		this._client.save(this);
-// 	}
-	
-// 	module.exports = CustomObject;
-// }).call(this);

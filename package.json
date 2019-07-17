@@ -1,23 +1,24 @@
 {
   "name": "P8Client",
-  "version": "0.0.1",
+  "version": "0.2.0",
   "authors": [
     "V. Bermudez <vbermudez@xi-tek.com>"
   ],
-  "description": "Cliente ligero IBM P8 FileNet",
+  "description": "Simple and thin IBM FileNet P8 Client for NodeJS",
   "keywords": [
-    "cliente",
-    "ligero",
+    "simple",
+    "thin",
     "ibm",
     "p8",
-    "filenet"
+    "filenet",
+    "client"
   ],
   "license": "(MIT OR Apache-2.0)",
   "homepage": "http://www.xi-tek.com",
   "private": true,
   "readmeFilename": "README.md",
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=10.16.0"
   },
   "main": "./src/p8client.ts",
   "directories": {
@@ -25,32 +26,24 @@
     "dist": "./dist"
   },
   "scripts": {
-    "test": "./node_modules/.bin/jasmine-node ./test --verbose",
-    "browser": "./node_modules/.bin/phantomjs ./test/run-jasmine.js ./test/SpecRunner.html",
-    "browserify": "./node_modules/.bin/browserify ./index.ts -p [ tsify --noImplicitAny ] > ./dist/p8client.js",
-    "gulp": "./node_modules/.bin/gulp"
+    "build": "tsc",
+    "test": "jest --forceExit --detectOpenHandles --verbose"
   },
   "repository": {
     "type": "git",
     "url": "git://github.com/vbermudez/p8client.git"
   },
   "dependencies": {
-    "soap": "git+https://github.com/vbermudez/node-soap.git"
+    "soap": "^0.28.0"
   },
   "devDependencies": {
-    "@types/es6-shim": "^0.31.32",
-    "@types/jasmine": "^2.5.38",
-    "@types/node": "^6.0.46",
-    "@types/soap": "0.0.30",
-    "browserify": "^13.1.1",
-    "gulp": "^3.9.1",
-    "gulp-typescript": "^3.1.3",
-    "gulp-util": "^3.0.7",
-    "jasmine-node": "^1.14.5",
-    "phantomjs": "^1.9.18",
-    "tsify": "^2.0.3",
-    "typescript": "^2.0.9",
-    "vinyl-source-stream": "^1.1.0",
-    "watchify": "^3.7.0"
+    "@types/async": "^3.0.0",
+    "@types/bluebird": "^3.5.27",
+    "@types/jest": "^24.0.15",
+    "@types/node": "^12.6.6",
+    "dotenv": "^8.0.0",
+    "jest": "^24.8.0",
+    "ts-jest": "^24.0.2",
+    "typescript": "^3.5.3"
   }
 }
