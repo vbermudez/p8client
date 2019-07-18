@@ -20,7 +20,7 @@
   "engines": {
     "node": ">=10.16.0"
   },
-  "main": "./src/p8client.ts",
+  "main": "./src/index.ts",
   "directories": {
     "src": "./src",
     "dist": "./dist"
